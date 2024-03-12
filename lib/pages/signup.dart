@@ -2,7 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/pages/bottomnav.dart';
 import 'package:food_delivery_app/pages/login.dart';
+import 'package:food_delivery_app/services/database.dart';
+import 'package:food_delivery_app/services/shared_pref.dart';
 import 'package:food_delivery_app/widgets/widget_support.dart';
+import 'package:random_string/random_string.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -35,18 +38,18 @@ class _SignUpState extends State<SignUp> {
               "Registered Successfully",
               style: TextStyle(fontSize: 20.0),
             ))));
-        // String Id = randomAlphaNumeric(10);
-        // Map<String, dynamic> addUserInfo = {
-        //   "Name": namecontroller.text,
-        //   "Email": mailcontroller.text,
-        //   "Wallet": "0",
-        //   "Id": Id,
-        // };
-        // await DatabaseMethods().addUserDetail(addUserInfo, Id);
-        // await SharedPreferenceHelper().saveUserName(namecontroller.text);
-        // await SharedPreferenceHelper().saveUserEmail(mailcontroller.text);
-        // await SharedPreferenceHelper().saveUserWallet('0');
-        // await SharedPreferenceHelper().saveUserId(Id);
+        String Id = randomAlphaNumeric(10);
+        Map<String, dynamic> addUserInfo = {
+          "Name": namecontroller.text,
+          "Email": mailcontroller.text,
+          "Wallet": "0",
+          "Id": Id,
+        };
+        await DatabaseMethods().addUserDetails(addUserInfo, Id);
+        await SharedPreferenceHelper().saveUserName(namecontroller.text);
+        await SharedPreferenceHelper().saveUserEmail(mailcontroller.text);
+        await SharedPreferenceHelper().saveUserWallet('0');
+        await SharedPreferenceHelper().saveUserId(Id);
 
         // ignore: use_build_context_synchronously
         Navigator.pushReplacement(context,
