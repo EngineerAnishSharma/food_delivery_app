@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/services/database.dart';
+import 'package:food_delivery_app/services/shared_pref.dart';
 import 'package:food_delivery_app/widgets/widget_support.dart';
 
 class Details extends StatefulWidget {
   String image, name, detail, price;
   Details(
-      {super.key, required this.detail,
+      {super.key,
+      required this.detail,
       required this.image,
       required this.name,
       required this.price});
@@ -17,22 +20,22 @@ class _DetailsState extends State<Details> {
   int a = 1, total = 0;
   String? id;
 
-  // getthesharedpref() async {
-  //   id = await SharedPreferenceHelper().getUserId();
-  //   setState(() {});
-  // }
+  getthesharedpref() async {
+    id = await SharedPreferenceHelper().getUserId();
+    setState(() {});
+  }
 
-  // ontheload() async {
-  //   await getthesharedpref();
-  //   setState(() {});
-  // }
+  ontheload() async {
+    await getthesharedpref();
+    setState(() {});
+  }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   ontheload();
-  //   total = int.parse(widget.price);
-  // }
+  @override
+  void initState() {
+    super.initState();
+    ontheload();
+    total = int.parse(widget.price);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,11 +53,14 @@ class _DetailsState extends State<Details> {
                   Icons.arrow_back_ios_new_outlined,
                   color: Colors.black,
                 )),
-            Image.asset(
-              "images/salad2.png",
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 2.5,
-              fit: BoxFit.fill,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(200),
+              child: Image.network(
+                widget.image,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 2.5,
+                fit: BoxFit.fill,
+              ),
             ),
             const SizedBox(
               height: 15.0,
@@ -170,21 +176,22 @@ class _DetailsState extends State<Details> {
                     ],
                   ),
                   GestureDetector(
-              //       onTap: () async {
-              //         Map<String, dynamic> addFoodtoCart = {
-              //           "Name": widget.name,
-              //           "Quantity": a.toString(),
-              //           "Total": total.toString(),
-              //           "Image": widget.image
-              //         };
-              //         await DatabaseMethods().addFoodToCart(addFoodtoCart, id!);
-              //            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              // backgroundColor: Colors.orangeAccent,
-              // content: Text(
-              //   "Food Added to Cart",
-              //   style: TextStyle(fontSize: 18.0),
-              // )));
-              //       },
+                          onTap: () async {
+                            Map<String, dynamic> addFoodtoCart = {
+                              "Name": widget.name,
+                              "Quantity": a.toString(),
+                              "Total": total.toString(),
+                              "Image": widget.image
+                            };
+                            await DatabaseMethods().addFoodtoCart(addFoodtoCart, id!);
+                               // ignore: use_build_context_synchronously
+                               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    backgroundColor: Colors.orangeAccent,
+                    content: Text(
+                      "Food Added to Cart",
+                      style: TextStyle(fontSize: 18.0),
+                    )));
+                          },
                     child: Container(
                       width: MediaQuery.of(context).size.width / 2,
                       padding: const EdgeInsets.all(8),

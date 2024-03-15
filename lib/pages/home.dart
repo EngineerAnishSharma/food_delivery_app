@@ -12,7 +12,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  bool icecream = false, pizza = false, salad = false, burger = false;
+  bool icecream = false, pizza = true, salad = false, burger = false;
   Stream? foodItemStream;
 
   onTheLoad() async {
@@ -44,11 +44,10 @@ class _HomeState extends State<Home> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => (Details(
-                                  detail:
-                                      "sxkclsmdkomczlvmsfkscmzldjvmdkfmockmzczmc  ",
-                                  image: "image",
-                                  name: "name",
-                                  price: "25"))),
+                                  detail: ds["Detail"],
+                                  image: ds["Image"],
+                                  name: ds["Name"],
+                                  price: ds["Price"]))),
                         );
                       },
                       child: Container(
@@ -109,58 +108,73 @@ class _HomeState extends State<Home> {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     DocumentSnapshot ds = snapshot.data.docs[index];
-                    return Container(
-                      margin: const EdgeInsets.only(bottom: 20.0),
-                      child: Material(
-                        elevation: 5.0,
-                        borderRadius: BorderRadius.circular(20.0),
-                        child: Container(
-                          padding: const EdgeInsets.all(5.0),
-                          width: MediaQuery.of(context).size.width - 40,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(20.0),
-                                child: Image.network(
-                                  ds['Image'],
-                                  width: 120,
-                                  height: 120,
-                                  fit: BoxFit.cover,
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => (Details(
+                                  detail: ds["Detail"],
+                                  image: ds["Image"],
+                                  name: ds["Name"],
+                                  price: ds["Price"]))),
+                        );
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 20.0),
+                        child: Material(
+                          elevation: 5.0,
+                          borderRadius: BorderRadius.circular(20.0),
+                          child: Container(
+                            padding: const EdgeInsets.all(5.0),
+                            width: MediaQuery.of(context).size.width - 40,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  child: Image.network(
+                                    ds['Image'],
+                                    width: 120,
+                                    height: 120,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(
-                                width: 20.0,
-                              ),
-                              Column(
-                                children: [
-                                  SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width / 2,
-                                    child: Text(
-                                      ds["Name"],
-                                      style: AppWidget.semiboldTextFieldStyle(),
+                                const SizedBox(
+                                  width: 20.0,
+                                ),
+                                Column(
+                                  children: [
+                                    SizedBox(
+                                      width:
+                                          MediaQuery.of(context).size.width / 2,
+                                      child: Text(
+                                        ds["Name"],
+                                        style:
+                                            AppWidget.semiboldTextFieldStyle(),
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width / 2,
-                                    child: Text(
-                                      "Honey honeey",
-                                      style: AppWidget.lightTextFieldStyle(),
+                                    SizedBox(
+                                      width:
+                                          MediaQuery.of(context).size.width / 2,
+                                      child: Text(
+                                        "Honey honeey",
+                                        style: AppWidget.lightTextFieldStyle(),
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width / 2,
-                                    child: Text(
-                                      "\$" + ds["Price"],
-                                      style: AppWidget.semiboldTextFieldStyle(),
+                                    SizedBox(
+                                      width:
+                                          MediaQuery.of(context).size.width / 2,
+                                      child: Text(
+                                        "\$" + ds["Price"],
+                                        style:
+                                            AppWidget.semiboldTextFieldStyle(),
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              )
-                            ],
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -174,257 +188,255 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Expanded(
-          child: Container(
-            margin: const EdgeInsets.only(top: 50.0, left: 20.0, right: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Hello Anish,",
-                      style: AppWidget.boldTextFieldStyle(),
+        child: Container(
+          margin: const EdgeInsets.only(top: 50.0, left: 20.0, right: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Hello Anish,",
+                    style: AppWidget.boldTextFieldStyle(),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(3.0),
+                    // margin: const EdgeInsets.only(right: 20.0),
+                    decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(8.0)),
+                    child: const Icon(
+                      Icons.shopping_cart_outlined,
+                      color: Colors.white,
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(3.0),
-                      // margin: const EdgeInsets.only(right: 20.0),
-                      decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(8.0)),
-                      child: const Icon(
-                        Icons.shopping_cart_outlined,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  "Delicious Food",
-                  style: AppWidget.headLineTextFieldStyle(),
-                ),
-                Text(
-                  "Discover anf get great food",
-                  style: AppWidget.lightTextFieldStyle(),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  // margin: const EdgeInsets.only(right: 20.0),
-                  child: showItem(),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                SizedBox(height: 280, child: allItems()),
-                // SingleChildScrollView(
-                //   scrollDirection: Axis.horizontal,
-                //   child: Row(
-                //     children: [
-                //       GestureDetector(
-                //         onTap: () {
-                //           Navigator.push(
-                //             context,
-                //             MaterialPageRoute(
-                //                 builder: (context) => (Details(
-                //                     detail:
-                //                         "sxkclsmdkomczlvmsfkscmzldjvmdkfmockmzczmc  ",
-                //                     image: "image",
-                //                     name: "name",
-                //                     price: "25"))),
-                //           );
-                //         },
-                //         child: Container(
-                //           margin: const EdgeInsets.all(5.0),
-                //           child: Material(
-                //             elevation: 5.0,
-                //             borderRadius: BorderRadius.circular(20.0),
-                //             child: Container(
-                //               padding: const EdgeInsets.all(14.0),
-                //               child: Column(
-                //                   crossAxisAlignment: CrossAxisAlignment.start,
-                //                   children: [
-                //                     Image.asset(
-                //                       "images/salad2.png",
-                //                       width: 150,
-                //                       height: 150,
-                //                       fit: BoxFit.cover,
-                //                     ),
-                //                     Text(
-                //                       "Veggie Taco Hash",
-                //                       style: AppWidget.semiboldTextFieldStyle(),
-                //                     ),
-                //                     const SizedBox(
-                //                       height: 5,
-                //                     ),
-                //                     Text(
-                //                       "Fresh and Healthy",
-                //                       style: AppWidget.lightTextFieldStyle(),
-                //                     ),
-                //                     const SizedBox(
-                //                       height: 5,
-                //                     ),
-                //                     Text(
-                //                       "\$25",
-                //                       style: AppWidget.semiboldTextFieldStyle(),
-                //                     ),
-                //                   ]),
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //       const SizedBox(
-                //         width: 3,
-                //       ),
-                //       Container(
-                //         margin: const EdgeInsets.all(5.0),
-                //         child: Material(
-                //           elevation: 5.0,
-                //           borderRadius: BorderRadius.circular(20.0),
-                //           child: Container(
-                //             padding: const EdgeInsets.all(14.0),
-                //             child: Column(
-                //                 crossAxisAlignment: CrossAxisAlignment.start,
-                //                 children: [
-                //                   Image.asset(
-                //                     "images/salad2.png",
-                //                     width: 150,
-                //                     height: 150,
-                //                     fit: BoxFit.cover,
-                //                   ),
-                //                   Text(
-                //                     "Mix veg Salad",
-                //                     style: AppWidget.semiboldTextFieldStyle(),
-                //                   ),
-                //                   const SizedBox(
-                //                     height: 5,
-                //                   ),
-                //                   Text(
-                //                     "Spicy and onion",
-                //                     style: AppWidget.lightTextFieldStyle(),
-                //                   ),
-                //                   const SizedBox(
-                //                     height: 5,
-                //                   ),
-                //                   Text(
-                //                     "\$25",
-                //                     style: AppWidget.semiboldTextFieldStyle(),
-                //                   ),
-                //                 ]),
-                //           ),
-                //         ),
-                //       )
-                //     ],
-                //   ),
-                // ),
-                const SizedBox(
-                  height: 10,
-                ),
-                allItemsVertically(),
-                // Material(
-                //   elevation: 5.0,
-                //   borderRadius: BorderRadius.circular(20.0),
-                //   child: Container(
-                //     padding: const EdgeInsets.all(5.0),
-                //     width: MediaQuery.of(context).size.width - 40,
-                //     child: Row(
-                //       crossAxisAlignment: CrossAxisAlignment.start,
-                //       children: [
-                //         Image.asset(
-                //           "images/salad2.png",
-                //           width: 120,
-                //           height: 120,
-                //           fit: BoxFit.cover,
-                //         ),
-                //         const SizedBox(
-                //           width: 20.0,
-                //         ),
-                //         Column(
-                //           children: [
-                //             SizedBox(
-                //               width: MediaQuery.of(context).size.width / 2,
-                //               child: Text(
-                //                 "Mediterranann Chickpea Salad",
-                //                 style: AppWidget.semiboldTextFieldStyle(),
-                //               ),
-                //             ),
-                //             SizedBox(
-                //               width: MediaQuery.of(context).size.width / 2,
-                //               child: Text(
-                //                 "Honey honeey",
-                //                 style: AppWidget.lightTextFieldStyle(),
-                //               ),
-                //             ),
-                //             SizedBox(
-                //               width: MediaQuery.of(context).size.width / 2,
-                //               child: Text(
-                //                 "\$25",
-                //                 style: AppWidget.semiboldTextFieldStyle(),
-                //               ),
-                //             ),
-                //           ],
-                //         )
-                //       ],
-                //     ),
-                //   ),
-                // ),
-                // const SizedBox(
-                //   height: 10,
-                // ),
-                // Material(
-                //   elevation: 5.0,
-                //   borderRadius: BorderRadius.circular(20.0),
-                //   child: Container(
-                //     padding: const EdgeInsets.all(5.0),
-                //     width: MediaQuery.of(context).size.width - 40,
-                //     child: Row(
-                //       crossAxisAlignment: CrossAxisAlignment.start,
-                //       children: [
-                //         Image.asset(
-                //           "images/salad2.png",
-                //           width: 120,
-                //           height: 120,
-                //           fit: BoxFit.cover,
-                //         ),
-                //         const SizedBox(
-                //           width: 20.0,
-                //         ),
-                //         Column(
-                //           children: [
-                //             SizedBox(
-                //               width: MediaQuery.of(context).size.width / 2,
-                //               child: Text(
-                //                 "Mediterranann Chickpea Salad",
-                //                 style: AppWidget.semiboldTextFieldStyle(),
-                //               ),
-                //             ),
-                //             SizedBox(
-                //               width: MediaQuery.of(context).size.width / 2,
-                //               child: Text(
-                //                 "Honey honeey",
-                //                 style: AppWidget.lightTextFieldStyle(),
-                //               ),
-                //             ),
-                //             SizedBox(
-                //               width: MediaQuery.of(context).size.width / 2,
-                //               child: Text(
-                //                 "\$25",
-                //                 style: AppWidget.semiboldTextFieldStyle(),
-                //               ),
-                //             ),
-                //           ],
-                //         )
-                //       ],
-                //     ),
-                //   ),
-                // ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                "Delicious Food",
+                style: AppWidget.headLineTextFieldStyle(),
+              ),
+              Text(
+                "Discover anf get great food",
+                style: AppWidget.lightTextFieldStyle(),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                // margin: const EdgeInsets.only(right: 20.0),
+                child: showItem(),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              SizedBox(height: 280, child: allItems()),
+              // SingleChildScrollView(
+              //   scrollDirection: Axis.horizontal,
+              //   child: Row(
+              //     children: [
+              //       GestureDetector(
+              //         onTap: () {
+              //           Navigator.push(
+              //             context,
+              //             MaterialPageRoute(
+              //                 builder: (context) => (Details(
+              //                     detail:
+              //                         "sxkclsmdkomczlvmsfkscmzldjvmdkfmockmzczmc  ",
+              //                     image: "image",
+              //                     name: "name",
+              //                     price: "25"))),
+              //           );
+              //         },
+              //         child: Container(
+              //           margin: const EdgeInsets.all(5.0),
+              //           child: Material(
+              //             elevation: 5.0,
+              //             borderRadius: BorderRadius.circular(20.0),
+              //             child: Container(
+              //               padding: const EdgeInsets.all(14.0),
+              //               child: Column(
+              //                   crossAxisAlignment: CrossAxisAlignment.start,
+              //                   children: [
+              //                     Image.asset(
+              //                       "images/salad2.png",
+              //                       width: 150,
+              //                       height: 150,
+              //                       fit: BoxFit.cover,
+              //                     ),
+              //                     Text(
+              //                       "Veggie Taco Hash",
+              //                       style: AppWidget.semiboldTextFieldStyle(),
+              //                     ),
+              //                     const SizedBox(
+              //                       height: 5,
+              //                     ),
+              //                     Text(
+              //                       "Fresh and Healthy",
+              //                       style: AppWidget.lightTextFieldStyle(),
+              //                     ),
+              //                     const SizedBox(
+              //                       height: 5,
+              //                     ),
+              //                     Text(
+              //                       "\$25",
+              //                       style: AppWidget.semiboldTextFieldStyle(),
+              //                     ),
+              //                   ]),
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //       const SizedBox(
+              //         width: 3,
+              //       ),
+              //       Container(
+              //         margin: const EdgeInsets.all(5.0),
+              //         child: Material(
+              //           elevation: 5.0,
+              //           borderRadius: BorderRadius.circular(20.0),
+              //           child: Container(
+              //             padding: const EdgeInsets.all(14.0),
+              //             child: Column(
+              //                 crossAxisAlignment: CrossAxisAlignment.start,
+              //                 children: [
+              //                   Image.asset(
+              //                     "images/salad2.png",
+              //                     width: 150,
+              //                     height: 150,
+              //                     fit: BoxFit.cover,
+              //                   ),
+              //                   Text(
+              //                     "Mix veg Salad",
+              //                     style: AppWidget.semiboldTextFieldStyle(),
+              //                   ),
+              //                   const SizedBox(
+              //                     height: 5,
+              //                   ),
+              //                   Text(
+              //                     "Spicy and onion",
+              //                     style: AppWidget.lightTextFieldStyle(),
+              //                   ),
+              //                   const SizedBox(
+              //                     height: 5,
+              //                   ),
+              //                   Text(
+              //                     "\$25",
+              //                     style: AppWidget.semiboldTextFieldStyle(),
+              //                   ),
+              //                 ]),
+              //           ),
+              //         ),
+              //       )
+              //     ],
+              //   ),
+              // ),
+              const SizedBox(
+                height: 10,
+              ),
+              allItemsVertically(),
+              // Material(
+              //   elevation: 5.0,
+              //   borderRadius: BorderRadius.circular(20.0),
+              //   child: Container(
+              //     padding: const EdgeInsets.all(5.0),
+              //     width: MediaQuery.of(context).size.width - 40,
+              //     child: Row(
+              //       crossAxisAlignment: CrossAxisAlignment.start,
+              //       children: [
+              //         Image.asset(
+              //           "images/salad2.png",
+              //           width: 120,
+              //           height: 120,
+              //           fit: BoxFit.cover,
+              //         ),
+              //         const SizedBox(
+              //           width: 20.0,
+              //         ),
+              //         Column(
+              //           children: [
+              //             SizedBox(
+              //               width: MediaQuery.of(context).size.width / 2,
+              //               child: Text(
+              //                 "Mediterranann Chickpea Salad",
+              //                 style: AppWidget.semiboldTextFieldStyle(),
+              //               ),
+              //             ),
+              //             SizedBox(
+              //               width: MediaQuery.of(context).size.width / 2,
+              //               child: Text(
+              //                 "Honey honeey",
+              //                 style: AppWidget.lightTextFieldStyle(),
+              //               ),
+              //             ),
+              //             SizedBox(
+              //               width: MediaQuery.of(context).size.width / 2,
+              //               child: Text(
+              //                 "\$25",
+              //                 style: AppWidget.semiboldTextFieldStyle(),
+              //               ),
+              //             ),
+              //           ],
+              //         )
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              // const SizedBox(
+              //   height: 10,
+              // ),
+              // Material(
+              //   elevation: 5.0,
+              //   borderRadius: BorderRadius.circular(20.0),
+              //   child: Container(
+              //     padding: const EdgeInsets.all(5.0),
+              //     width: MediaQuery.of(context).size.width - 40,
+              //     child: Row(
+              //       crossAxisAlignment: CrossAxisAlignment.start,
+              //       children: [
+              //         Image.asset(
+              //           "images/salad2.png",
+              //           width: 120,
+              //           height: 120,
+              //           fit: BoxFit.cover,
+              //         ),
+              //         const SizedBox(
+              //           width: 20.0,
+              //         ),
+              //         Column(
+              //           children: [
+              //             SizedBox(
+              //               width: MediaQuery.of(context).size.width / 2,
+              //               child: Text(
+              //                 "Mediterranann Chickpea Salad",
+              //                 style: AppWidget.semiboldTextFieldStyle(),
+              //               ),
+              //             ),
+              //             SizedBox(
+              //               width: MediaQuery.of(context).size.width / 2,
+              //               child: Text(
+              //                 "Honey honeey",
+              //                 style: AppWidget.lightTextFieldStyle(),
+              //               ),
+              //             ),
+              //             SizedBox(
+              //               width: MediaQuery.of(context).size.width / 2,
+              //               child: Text(
+              //                 "\$25",
+              //                 style: AppWidget.semiboldTextFieldStyle(),
+              //               ),
+              //             ),
+              //           ],
+              //         )
+              //       ],
+              //     ),
+              //   ),
+              // ),
+            ],
           ),
         ),
       ),

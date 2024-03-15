@@ -5,6 +5,7 @@ class SharedPreferenceHelper {
   static String userNameKey = "USERNAMEKEY";
   static String userEmailKey = "USERMAILKEY";
   static String userWalletKey = "USERWALLETKEY";
+  static String userPhoto = "USERPHOTO";
 
   Future<bool> saveUserId(String getUserId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -26,6 +27,11 @@ class SharedPreferenceHelper {
     return prefs.setString(userWalletKey, getUserWallet);
   }
 
+  Future<bool> saveUserProfile(String downloadUrl) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.setString(userNameKey, downloadUrl);
+  }
+
   Future<String?> getUserId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(userIdKey);
@@ -45,4 +51,11 @@ class SharedPreferenceHelper {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(userWalletKey);
   }
+
+  Future<String?> getUserProfile() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(userPhoto);
+  }
+
+  
 }
