@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/admin/admin_login.dart';
 import 'package:food_delivery_app/pages/details.dart';
 import 'package:food_delivery_app/services/database.dart';
 import 'package:food_delivery_app/widgets/widget_support.dart';
@@ -200,15 +201,23 @@ class _HomeState extends State<Home> {
                     "Hello Anish,",
                     style: AppWidget.boldTextFieldStyle(),
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(3.0),
-                    // margin: const EdgeInsets.only(right: 20.0),
-                    decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(8.0)),
-                    child: const Icon(
-                      Icons.shopping_cart_outlined,
-                      color: Colors.white,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => (const AdminLogin())),
+                    );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(3.0),
+                      // margin: const EdgeInsets.only(right: 20.0),
+                      decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(8.0)),
+                      child: const Icon(
+                        Icons.shopping_cart_outlined,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ],

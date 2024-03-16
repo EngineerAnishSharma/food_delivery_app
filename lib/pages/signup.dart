@@ -32,12 +32,15 @@ class _SignUpState extends State<SignUp> {
             .createUserWithEmailAndPassword(email: email, password: password);
 
         // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context).showSnackBar((const SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(
+          (const SnackBar(
             backgroundColor: Colors.redAccent,
             content: Text(
               "Registered Successfully",
               style: TextStyle(fontSize: 20.0),
-            ))));
+            ),
+          )),
+        );
         String Id = randomAlphaNumeric(10);
         Map<String, dynamic> addUserInfo = {
           "Name": namecontroller.text,

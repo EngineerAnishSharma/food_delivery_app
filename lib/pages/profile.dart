@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/pages/login.dart';
+import 'package:food_delivery_app/pages/signup.dart';
 import 'package:food_delivery_app/services/profile_auth.dart';
 import 'package:food_delivery_app/services/shared_pref.dart';
 import 'package:image_picker/image_picker.dart';
@@ -283,6 +284,10 @@ class _ProfileState extends State<Profile> {
                 GestureDetector(
                   onTap: () {
                     AuthMethods().deleteUser();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => (const SignUp())),
+                    );
                   },
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -330,11 +335,10 @@ class _ProfileState extends State<Profile> {
                 GestureDetector(
                   onTap: () {
                     AuthMethods().signOut();
-                    Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => (const LogIn())),
-                        );
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => (const LogIn())),
+                    );
                   },
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 20.0),
